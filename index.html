@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elliot Winblad | Photography Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vault: #111111;
+            --gold: #C8A96E;
+            --gold-muted: rgba(200, 169, 110, 0.6);
+        }
+
+        body {
+            background-color: var(--vault);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Cormorant+Garamond', serif;
+        }
+
+        .gold-text { color: var(--gold); }
+        .gold-border { border-color: var(--gold); }
+        .gold-bg { background-color: var(--gold); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--vault); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+        /* Sections */
+        .page-section {
+            min-height: 100vh;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Portfolio Split Layout */
+        .parallax-section {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .side-col {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .img-card {
+            width: 100%;
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(40%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-card:hover {
+            filter: grayscale(0%);
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .img-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17,17,17,0.8), transparent);
+            opacity: 0.5;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        nav {
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .custom-cursor { display: block; }
+        }
+
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link.active-link::after, .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="cursor" class="custom-cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 px-8 py-6 flex justify-between items-center">
+        <div class="text-xl md:text-2xl font-serif tracking-widest uppercase">
+            Elliot <span class="gold-text">Winblad</span>
+        </div>
+        <div class="hidden md:flex gap-12 text-xs uppercase tracking-[0.3em] font-medium">
+            <span onclick="showPage('home')" class="nav-link active-link" id="nav-home">Portfolio</span>
+            <span onclick="showPage('about')" class="nav-link" id="nav-about">About</span>
+        </div>
+        <button class="gold-border border px-6 py-2 text-[10px] uppercase tracking-widest hover:bg-[#C8A96E] hover:text-black transition-all">
+            Contact
+        </button>
+    </nav>
+
+    <!-- Portfolio Section (Home) -->
+    <div id="page-home" class="page-section active">
+        <!-- Hero Section -->
+        <header class="h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
+            <h2 class="text-sm uppercase tracking-[0.5em] gold-text mb-4 reveal-text">Photography</h2>
+            <h1 class="text-6xl md:text-8xl font-serif italic mb-6 reveal-text">Captured Moments</h1>
+            <p class="max-w-md text-gray-400 font-light leading-relaxed reveal-text">
+                The visual journey of Elliot Winblad. Exploring texture, light, and the quiet spaces in between.
+            </p>
+            <div class="mt-12 animate-bounce">
+                <svg class="w-6 h-6 gold-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Dual Portfolio Grid -->
+        <main id="portfolio" class="parallax-section border-t border-b border-zinc-900">
+            <!-- Left Side -->
+            <div class="side-col md:mt-20">
+                <div class="img-card" style="background-image: url('images/placeholder1.jpg')">
+                    <div class="absolute bottom-6 left-6 text-xs uppercase tracking-widest">Architecture</div>
+                </div>
+                <div class="img-card" style="background-image: url('images/placeholder2.jpg')">
+                    <div class="absolute bottom-6 left-6 text-xs uppercase tracking-widest">Urban Life</div>
+                </div>
+            </div>
+
+            <!-- Center Vertical Text -->
+            <div class="hidden lg:flex flex-col justify-center items-center px-12 text-center sticky top-0 h-screen w-1/4">
+                <div class="h-24 w-[1px] gold-bg mb-8"></div>
+                <h3 class="font-serif text-4xl italic mb-4">Gallery</h3>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500">Curated Work</p>
+            </div>
+
+            <!-- Right Side -->
+            <div class="side-col md:mb-20">
+            </div>
+        </main>
+    </div>
+
+    <!-- About Section -->
+    <div id="page-about" class="page-section">
+        <section class="min-height-screen pt-40 px-8 max-w-6xl mx-auto pb-20">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-text">
+                    <h2 class="text-sm uppercase tracking-[0.5em] gold-text mb-4">Biography</h2>
+                    <h1 class="text-5xl md:text-7xl font-serif italic mb-8">Hi, I'm Elliot.</h1>
+                    <div class="space-y-6 text-gray-400 font-light leading-relaxed text-lg">
+                        <p>
+                            I am a 15-year-old photographer with a focus on capturing everything that catches my eye. For me, photography isn't just a hobby; it's a way to explore the world and preserve the beauty of everyday life.
+                        </p>
+                        <p>
+                            I have a deep love for <span class="gold-text">architecture, urban structures, and street photography</span>. There is something fascinating about the way buildings interact with light and how the energy of a city can be frozen in a single frame.
+                        </p>
+                        <p>
+                            Beyond the city streets, I love capturing the stillness of <span class="gold-text">nature and animals</span>. I am constantly exploring new places and I make sure to bring my camera wherever I go. Traveling is a massive part of my inspiration, allowing me to document new cultures and landscapes through my lens.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-12 grid grid-cols-2 gap-8 border-t border-zinc-800 pt-8">
+                        <div>
+                            <h4 class="gold-text text-xs uppercase tracking-widest mb-2">Based in</h4>
+                            <p class="text-sm text-zinc-500">Scandinavia / Mobile</p>
+                        </div>
+                        <div>
+                            <h4 class="gold-text text-xs uppercase tracking-widest mb-2">Gear</h4>
+                            <p class="text-sm text-zinc-500">Travel-ready Kit<br>Digital & Lens Focus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-[4/5] bg-zinc-900 overflow-hidden border border-zinc-800">
+                        <img src="https://images.unsplash.com/photo-1551334787-21e6bd3ab135?auto=format&fit=crop&q=80&w=1000" alt="Elliot Winblad Exploration" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 border-r border-b gold-border"></div>
+                    <div class="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-4 py-2 border border-white/10 text-[10px] uppercase tracking-widest">
+                        Est. 2024
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-zinc-900 px-8 text-center bg-[#0a0a0a]">
+        <div class="text-3xl font-serif italic mb-8">Elliot Winblad</div>
+        <div class="flex justify-center gap-8 mb-12 text-gray-500 text-xs uppercase tracking-widest">
+            <a href="#" class="hover:text-[#C8A96E]">Instagram</a>
+            <a href="#" class="hover:text-[#C8A96E]">TikTok</a>
+            <a href="#" class="hover:text-[#C8A96E]">Threads</a>
+        </div>
+        <div class="text-[10px] text-zinc-600 tracking-widest uppercase">
+            &copy; 2026 Elliot Winblad. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Page Navigation Logic
+        function showPage(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show target section
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Update active link state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-link');
+            });
+            const activeNav = document.getElementById('nav-' + pageId);
+            if(activeNav) activeNav.classList.add('active-link');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Trigger animations for the new page
+            setTimeout(() => {
+                const visibleElements = document.querySelector('#page-' + pageId).querySelectorAll('.reveal-text');
+                visibleElements.forEach(el => el.classList.add('visible'));
+            }, 100);
+        }
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+        });
+
+        // Intersection Observer for Reveal Effects (on initial load)
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+
+        // Parallax-ish Scroll Effect for Images
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const images = document.querySelectorAll('.img-card');
+            
+            images.forEach((img, index) => {
+                const speed = (index % 2 === 0) ? 0.05 : -0.05;
+                const yPos = -(scrolled * speed);
+                img.style.backgroundPositionY = `calc(50% + ${yPos}px)`;
+            });
+        });
+
+        // Fetch and dynamically load images from images.json
+        fetch('images.json')
+            .then(response => response.json())
+            .then(data => {
+                const leftCol = document.querySelector('.side-col:first-child');
+                const rightCol = document.querySelector('.side-col:last-child');
+
+                data.images.forEach((image, index) => {
+                    const imgCard = document.createElement('div');
+                    imgCard.className = 'img-card';
+                    imgCard.style.backgroundImage = `url('images/${image.filename}')`;
+
+                    // Make IMG_0025.JPG full height
+                    if (image.filename === 'IMG_0025.JPG') {
+                        imgCard.style.height = '100vh';
+                    }
+
+                    const label = document.createElement('div');
+                    label.className = 'absolute bottom-6 left-6 text-xs uppercase tracking-widest';
+                    label.textContent = image.section;
+
+                    imgCard.appendChild(label);
+
+                    // Alternate between left and right columns
+                    if (index % 2 === 0) {
+                        leftCol.appendChild(imgCard);
+                    } else {
+                        rightCol.appendChild(imgCard);
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading images:', error));
+    </script>
+</body>
+</html>
+
